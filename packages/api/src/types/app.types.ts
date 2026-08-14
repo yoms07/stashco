@@ -1,6 +1,13 @@
 import type { Hono } from 'hono';
 
-export type AppType = Hono;
+/** Hono context variables set by middleware. `address` is set by `requireAuth`. */
+export interface Variables {
+  address: string;
+}
+
+export type HonoEnv = { Variables: Variables };
+
+export type AppType = Hono<HonoEnv>;
 
 export interface ApiResponse<T = unknown> {
   success: boolean;

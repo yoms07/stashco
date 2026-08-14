@@ -1,5 +1,8 @@
 // Types
-export * from './types.js';
+export * from './types';
+
+// Stellar network config
+export * from './stellar';
 
 // Schemas
-export * from './schemas/user.schema.js';
+export * from './schemas/auth.schema';

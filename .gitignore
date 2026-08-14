@@ -9,6 +9,15 @@ dist/
 .next/
 *.tsbuildinfo
 
+# Generated contract bindings are committed so web/api build without a Rust toolchain
+!packages/contract-client/dist
+!packages/contract-client/dist/**
+
+# Soroban / Stellar
+tmp-bindings/
+.contract-id*
+.stellar/
+
 # Environment
 .env
 .env.local

@@ -1,12 +1,15 @@
 import { Hono } from 'hono';
+import { serve } from '@hono/node-server';
 import { env } from './config/env.js';
 import { logger } from './config/logger.js';
 import { corsMiddleware } from './middleware/cors.middleware.js';
 import { loggerMiddleware } from './middleware/logger.middleware.js';
 import { errorHandler } from './middleware/error.middleware.js';
 import { health } from './routes/health.route.js';
+import { auth } from './routes/auth.route.js';
+import type { HonoEnv } from './types/app.types.js';
 
-const app = new Hono();
+const app = new Hono<HonoEnv>();
 
 // Global middleware
 app.use('*', corsMiddleware);
@@ -14,6 +17,7 @@ app.use('*', loggerMiddleware);
 
 // Routes
 app.route('/health', health);
+app.route('/auth', auth);
 
 // Root endpoint
 app.get('/', (c) => {
@@ -41,9 +45,8 @@ const port = env.PORT;
 
 logger.info(`Starting server in ${env.NODE_ENV} mode...`);
 
-export default {
-  port,
-  fetch: app.fetch,
-};
+serve({ fetch: app.fetch, port }, ({ port }) => {
+  logger.info(`Server running on http://localhost:${port}`);
+});
 
-console.log(`Server running on http://localhost:${port}`);
+export default app;

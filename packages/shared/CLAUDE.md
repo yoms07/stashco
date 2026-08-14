@@ -13,7 +13,7 @@ src/
 ├── index.ts           # Barrel export — everything exported from here
 ├── types.ts           # Shared TypeScript interfaces (ApiResponse, PaginatedResponse)
 └── schemas/
-    └── user.schema.ts # Zod schemas + inferred types for User domain
+    └── auth.schema.ts # Zod schemas + inferred types for wallet auth
 ```
 
 ## Development Commands

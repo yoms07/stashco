@@ -4,21 +4,12 @@
  */
 
 export const API_ENDPOINTS = {
-  // Auth
+  // Wallet auth
   auth: {
-    login: '/auth/login',
-    register: '/auth/register',
+    challenge: '/auth/challenge',
+    verify: '/auth/verify',
     logout: '/auth/logout',
     me: '/auth/me',
-  },
-
-  // Users
-  users: {
-    list: '/users',
-    byId: (id: string) => `/users/${id}`,
-    create: '/users',
-    update: (id: string) => `/users/${id}`,
-    delete: (id: string) => `/users/${id}`,
   },
 
   // Health check

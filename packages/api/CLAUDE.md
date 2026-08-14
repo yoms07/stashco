@@ -315,44 +315,46 @@ logger.error('Database error', { error, query });
 - Use `prisma.$transaction()` for multiple related operations
 - Profile with `pnpm test:coverage` to find slow tests
 
-## Authentication (better-auth)
+## Authentication (wallet, D-001)
 
-If auth is enabled, the project uses [better-auth](https://better-auth.com) with cookie-based sessions.
+The connected Stellar wallet is the only identity — no email, no password, no user table.
 
 ### How it works
 
-- All auth routes are mounted at `/api/auth/**` — handled automatically by better-auth
-- Sessions are stored in the database (Prisma adapter)
-- Cookies are HTTP-only — no manual token management
+1. `POST /auth/challenge { address }` — persists a single-use `Nonce` (5 min TTL), returns the
+   message to sign.
+2. The browser calls Freighter `signMessage(nonce)`.
+3. `POST /auth/verify { address, signature }` — verifies the Ed25519 signature
+   (`src/lib/wallet-signature.ts`), burns the nonce, sets the HTTP-only `sa_session` JWT cookie.
+
+Freighter SEP-53-frames the message before signing (`SHA-256("Stellar Signed Message:\n" + msg)`)
+— the verifier depends on that exactly.
 
 ### Protecting routes
 
 ```typescript
-import { requireAuth, optionalAuth } from '../middleware/auth.middleware.js';
+import { requireAuth } from '../middleware/auth.middleware.js';
 
-// Require a valid session
 app.get('/profile', requireAuth, (c) => {
-  const session = c.get('session'); // { user: User, session: Session }
-  return success(c, session.user);
-});
-
-// Attach session if present, but don't block
-app.get('/feed', optionalAuth, (c) => {
-  const session = c.get('session'); // null if not logged in
-  ...
+  const address = c.get('address'); // G... public key
+  return success(c, { address });
 });
 ```
 
-### Prisma schema
-
-The schema includes `user`, `session`, `account`, and `verification` tables managed by better-auth. Do not modify them manually — run `npx better-auth generate` if you change `src/lib/auth.ts`.
+Never bake an on-chain-derived flag (role, entitlement) into the JWT — simulate it fresh from
+the contract via `src/lib/soroban.ts` on each request.
 
 ### Auth environment variables
 
 ```
-BETTER_AUTH_SECRET=...   # min 32 chars
-BETTER_AUTH_URL=...      # your API URL, e.g. http://localhost:3001
+SESSION_SECRET=...       # min 32 chars
 ```
+
+## Soroban reads
+
+`src/lib/soroban.ts` wraps the generated client. `readClient()` simulates as
+`contract.NULL_ACCOUNT` (never signs); `signingClient()` uses `SERVER_SIGNER_SECRET` and returns
+null when unset so callers can 503 instead of crashing.
 
 ## Security Checklist
 

@@ -7,12 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        String   @id @default(cuid())
-  email     String   @unique
-  name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+/// Single-use login challenge. The wallet is the identity — there is no user table.
+model Nonce {
+  id        String    @id @default(cuid())
+  wallet    String
+  nonce     String
+  expiresAt DateTime
+  usedAt    DateTime?
+  createdAt DateTime  @default(now())
 
-  @@map("users")
+  @@index([wallet, usedAt])
+  @@map("nonces")
 }

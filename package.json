@@ -4,10 +4,13 @@
   "private": true,
   "scripts": {
     "dev": "pnpm --parallel -r dev",
-    "build": "pnpm --parallel -r build",
+    "build": "pnpm -r build",
     "typecheck": "pnpm --parallel -r typecheck",
     "lint": "pnpm --parallel -r lint",
-    "format": "pnpm --parallel -r format"
+    "format": "pnpm --parallel -r format",
+    "contract:test": "cd contracts && cargo test",
+    "contract:build": "cd contracts && stellar contract build",
+    "contract:bindings": "make bindings"
   },
   "devDependencies": {
     "typescript": "^5.7.2",

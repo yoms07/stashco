@@ -1,12 +1,10 @@
 /**
- * Auth service exports
+ * Auth service exports — wallet is the only identity.
  *
- * Quick start:
- *   import { useSession, useSignIn, useSignUp, useSignOut } from '@/services/auth';
- *
- * For direct better-auth client access:
- *   import { authClient } from '@/lib/auth-client';
+ *   import { useMe, useSignIn, useSignOut } from '@/services/auth';
  */
 
 export * from './auth.types';
+export * from './auth.queries';
+export * from './auth.service';
 export * from './auth.hook';

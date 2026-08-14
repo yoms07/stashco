@@ -12,7 +12,8 @@ Next.js 15 frontend with App Router, TanStack Query, Tailwind CSS, and shadcn/ui
 - **Language**: TypeScript strict mode
 - **Styling**: Tailwind CSS + shadcn/ui
 - **Data Fetching**: TanStack Query (React Query v5)
-- **Auth**: better-auth client (cookie-based sessions)
+- **Wallet / Auth**: Freighter (`@stellar/freighter-api`) — the wallet is the identity;
+  the API session is an HTTP-only cookie obtained by signing a nonce
 - **HTTP**: Custom `ApiClient` in `services/api/client.ts`
 
 ## Development Commands
@@ -28,34 +29,37 @@ pnpm lint         # ESLint
 
 ```
 app/
-├── layout.tsx          # Root layout (wraps with QueryProvider)
-└── page.tsx            # Home page
+├── layout.tsx          # Root layout (QueryProvider > WalletProvider)
+└── page.tsx            # Home page — connect + sign in
 
 components/
-├── examples/           # Example components (delete or adapt)
+├── wallet/
+│   └── connect-wallet-button.tsx
 └── ui/                 # shadcn/ui components (add via: npx shadcn add <component>)
 
 lib/
 ├── utils.ts            # cn() utility (clsx + tailwind-merge)
-└── auth-client.ts      # better-auth client — useSession, signIn, signUp, signOut
+├── stellar.ts          # network config from NEXT_PUBLIC_* + explorer URLs
+└── contracts.ts        # contract client bound to the connected wallet for signing
 
 providers/
-└── query-provider.tsx  # TanStack Query setup + ReactQueryDevtools
+├── query-provider.tsx  # TanStack Query setup + ReactQueryDevtools
+└── wallet-provider.tsx # <WalletProvider> + useWallet() — Freighter connect/restore/watch
 
 services/
 ├── api/
 │   ├── client.ts       # ApiClient — fetch wrapper with credentials: 'include'
 │   └── endpoints.ts    # API_ENDPOINTS constant
-├── auth/
-│   ├── auth.types.ts   # AuthUser, AuthSession, SignInInput, SignUpInput
-│   ├── auth.hook.ts    # useSession, useSignIn, useSignUp, useSignOut
-│   └── index.ts
-└── users/
-    ├── users.types.ts
-    ├── users.queries.ts
-    ├── users.service.ts
-    └── users.hook.ts
+└── auth/
+    ├── auth.types.ts   # AuthSession
+    ├── auth.queries.ts # query keys, prefixed by wallet address
+    ├── auth.service.ts # challenge -> signMessage -> verify
+    ├── auth.hook.ts    # useMe, useSignIn, useSignOut
+    └── index.ts
 ```
+
+Query keys are prefixed with the wallet address so a Freighter account switch invalidates
+everything automatically.
 
 ## Architecture Patterns
 
@@ -115,34 +119,45 @@ export function useCreatePost() {
 }
 ```
 
-### Auth usage
+### Wallet + auth usage
+
+Two steps, on purpose: connecting is local to the extension, signing in is what the API trusts.
 
 ```typescript
 'use client';
-import { useSession, useSignIn, useSignOut } from '@/services/auth';
+import { useWallet } from '@/providers/wallet-provider';
+import { useMe, useSignIn, useSignOut } from '@/services/auth';
 
 export function ProfileButton() {
-  const { data: session, isPending } = useSession();
+  const { isConnected, address, restoring, connect } = useWallet();
+  const { data: session } = useMe();
   const signIn = useSignIn();
   const signOut = useSignOut();
 
-  if (isPending) return <span>Loading...</span>;
-  if (!session) return <button onClick={() => signIn({ email, password })}>Sign in</button>;
+  if (restoring) return <span>Loading…</span>;
+  if (!isConnected) return <button onClick={connect}>Connect Freighter</button>;
+  if (!session) return <button onClick={() => signIn.mutate()}>Sign in</button>;
 
   return (
     <div>
-      <span>{session.user.name}</span>
-      <button onClick={signOut}>Sign out</button>
+      <span>{session.address}</span>
+      <button onClick={() => signOut.mutate()}>Sign out</button>
     </div>
   );
 }
 ```
 
-For direct better-auth access:
+Anything that branches on `isConnected` must wait on `restoring` first, or a returning user
+flashes through the "connect wallet" state.
+
+### Calling a contract
+
 ```typescript
-import { authClient } from '@/lib/auth-client';
-// authClient.signIn.email(), authClient.signUp.email(), authClient.signOut()
-// authClient.useSession() — React hook
+import { getAmbassadorClient } from '@/lib/contracts';
+
+const client = getAmbassadorClient(address);   // omit address for read-only simulation
+const tx = await client.bump({ caller: address });
+const { result } = await tx.signAndSend();
 ```
 
 ### Adding shadcn/ui components

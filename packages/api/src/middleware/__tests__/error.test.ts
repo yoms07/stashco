@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { Hono } from 'hono';
 import { errorHandler } from '../error.middleware.js';
 import {
@@ -38,7 +38,7 @@ describe('Error Middleware', () => {
     const res = await app.request('/bad-request');
     expect(res.status).toBe(400);
 
-    const json = await res.json();
+    const json = (await res.json() as any);
     expect(json.success).toBe(false);
     expect(json.error).toBe('Invalid input');
     expect(json.code).toBe('BAD_REQUEST');
@@ -48,7 +48,7 @@ describe('Error Middleware', () => {
     const res = await app.request('/not-found');
     expect(res.status).toBe(404);
 
-    const json = await res.json();
+    const json = (await res.json() as any);
     expect(json.success).toBe(false);
     expect(json.error).toBe('Resource not found');
     expect(json.code).toBe('NOT_FOUND');
@@ -58,7 +58,7 @@ describe('Error Middleware', () => {
     const res = await app.request('/unauthorized');
     expect(res.status).toBe(401);
 
-    const json = await res.json();
+    const json = (await res.json() as any);
     expect(json.success).toBe(false);
     expect(json.error).toBe('Not authenticated');
     expect(json.code).toBe('UNAUTHORIZED');
@@ -68,7 +68,7 @@ describe('Error Middleware', () => {
     const res = await app.request('/server-error');
     expect(res.status).toBe(500);
 
-    const json = await res.json();
+    const json = (await res.json() as any);
     expect(json.success).toBe(false);
     expect(json.error).toBe('Something went wrong');
     expect(json.code).toBe('INTERNAL_SERVER_ERROR');
@@ -78,7 +78,7 @@ describe('Error Middleware', () => {
     const res = await app.request('/unknown-error');
     expect(res.status).toBe(500);
 
-    const json = await res.json();
+    const json = (await res.json() as any);
     expect(json.success).toBe(false);
     expect(json.error).toBe('Internal server error');
     expect(json.code).toBe('INTERNAL_SERVER_ERROR');

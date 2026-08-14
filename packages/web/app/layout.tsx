@@ -1,13 +1,14 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { QueryProvider } from '@/providers/query-provider';
+import { WalletProvider } from '@/providers/wallet-provider';
 import './globals.css';
 
 const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'stellar-ambassador',
-  description: 'Generated with create-monorepo',
+  description: 'A Stellar / Soroban dApp',
 };
 
 export default function RootLayout({
@@ -18,7 +19,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <QueryProvider>{children}</QueryProvider>
+        <QueryProvider>
+          <WalletProvider>{children}</WalletProvider>
+        </QueryProvider>
       </body>
     </html>
   );

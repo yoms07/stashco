@@ -1,38 +1,6 @@
-/**
- * Auth types — aligned with better-auth's session model.
- */
+import type { ChallengeResponse, Session } from '@stellar-ambassador/shared';
 
-export interface AuthUser {
-  id: string;
-  name: string;
-  email: string;
-  emailVerified: boolean;
-  image?: string | null;
-  createdAt: Date;
-  updatedAt: Date;
-}
+export type { ChallengeResponse, Session };
 
-export interface AuthSession {
-  user: AuthUser;
-  session: {
-    id: string;
-    userId: string;
-    expiresAt: Date;
-    token: string;
-    ipAddress?: string | null;
-    userAgent?: string | null;
-  };
-}
-
-export interface SignInInput {
-  email: string;
-  password: string;
-  callbackURL?: string;
-}
-
-export interface SignUpInput {
-  name: string;
-  email: string;
-  password: string;
-  callbackURL?: string;
-}
+/** Session as consumed by the UI — same shape from /auth/me and /auth/verify. */
+export type AuthSession = Session;

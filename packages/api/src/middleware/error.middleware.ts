@@ -1,4 +1,5 @@
 import type { Context } from 'hono';
+import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import { logger } from '../config/logger.js';
 import { AppError } from '../lib/errors.js';
 import type { ApiResponse } from '../types/app.types.js';
@@ -21,7 +22,7 @@ export function errorHandler(error: Error, c: Context) {
       details: process.env.NODE_ENV === 'development' ? error.details : undefined,
     };
 
-    return c.json(response, error.statusCode);
+    return c.json(response, error.statusCode as ContentfulStatusCode);
   }
 
   // Handle unknown errors

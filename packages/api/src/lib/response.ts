@@ -1,11 +1,11 @@
 import type { Context } from 'hono';
-import type { StatusCode } from 'hono/utils/http-status';
+import type { ContentfulStatusCode } from 'hono/utils/http-status';
 import type { ApiResponse } from '../types/app.types.js';
 
 /**
  * Success response helper
  */
-export function success<T>(c: Context, data: T, statusCode: StatusCode = 200) {
+export function success<T>(c: Context, data: T, statusCode: ContentfulStatusCode = 200) {
   const response: ApiResponse<T> = {
     success: true,
     data,
@@ -19,7 +19,7 @@ export function success<T>(c: Context, data: T, statusCode: StatusCode = 200) {
 export function error(
   c: Context,
   message: string,
-  statusCode: StatusCode = 500,
+  statusCode: ContentfulStatusCode = 500,
   code?: string,
   details?: unknown
 ) {
