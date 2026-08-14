@@ -1,10 +1,16 @@
-# stellar-ambassador
+# StashCo
+
+> The product is **StashCo**. The repo directory and the `@stellar-ambassador/*` package scope
+> are scaffolding from the original template and are deliberately left unrenamed.
 
 A Stellar / Soroban dApp monorepo. Wallet is identity; the chain is the authority on state
 that matters.
 
-> The product idea is not defined yet — `contracts/contracts/ambassador` is a placeholder that
-> exists to prove the toolchain end to end. See `docs/PROGRESS.md`.
+> A single-owner on-chain treasury: `owner` deposits USDC into a Blend V2 pool for yield;
+> paying a vendor needs a separate `approver`'s signature. See `docs/PLAN.md`.
+>
+> **Losing the approver key permanently freezes the treasury — no recovery path.** This is
+> deliberate (see `docs/DECISIONS.md` D-007); N-of-M approvers is the v2 fix.
 
 ## Getting Started
 
@@ -31,8 +37,8 @@ make bindings   # rebuild the TypeScript client from the Wasm
 make deploy     # deploy + init on testnet, prints the contract ids
 ```
 
-Put the printed ids in `packages/api/.env` (`AMBASSADOR_CONTRACT_ID`) and
-`packages/web/.env.local` (`NEXT_PUBLIC_AMBASSADOR_CONTRACT_ID`).
+Put the printed ids in `packages/api/.env` (`TREASURY_CONTRACT_ID`) and
+`packages/web/.env.local` (`NEXT_PUBLIC_TREASURY_CONTRACT_ID`).
 
 `make help` lists every target.
 

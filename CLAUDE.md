@@ -1,4 +1,4 @@
-# CLAUDE.md — stellar-ambassador
+# CLAUDE.md — StashCo
 
 This file provides guidance to Claude Code when working in this monorepo.
 
@@ -10,13 +10,17 @@ This file provides guidance to Claude Code when working in this monorepo.
 > `docs/DECISIONS.md` records settled choices; do not relitigate them in code.
 > `docs/CONTRACT_SPEC.md` and `docs/API_SPEC.md` are the frozen interfaces.
 >
-> **The product idea is not defined yet.** The contract is a placeholder that exists only to
-> prove the toolchain end to end. Do not invent product behavior — ask.
+> **The product idea is settled: a single-owner on-chain treasury** (`docs/PLAN.md` §1). Do
+> not relitigate the design in code — amend the docs first.
 
 ## Project Overview
 
-**stellar-ambassador** is a Web3 dApp on Stellar (Soroban). Wallet is identity — there is no
+**StashCo** is a Web3 dApp on Stellar (Soroban). Wallet is identity — there is no
 email, no password, no user table (D-001).
+
+> The product name is **StashCo**. The repo directory `stellar-ambassador` and the
+> `@stellar-ambassador/*` package scope are legacy scaffolding — do not rename them, and do not
+> put them in user-facing copy.
 
 Packages:
 - `contracts/` — Soroban (Rust) smart contracts. Cargo workspace, not an npm package.
@@ -53,7 +57,7 @@ pnpm format
 contracts/ (Rust)
    │  stellar contract bindings typescript (make bindings)
    ▼
-packages/contract-client (generated TS "ABI", namespaced: Ambassador)  ←  packages/web
+packages/contract-client (generated TS "ABI", namespaced: Treasury)  ←  packages/web
                                                                        ←  packages/api
 packages/shared  ←  packages/api
                  ←  packages/web
@@ -66,8 +70,8 @@ packages/shared  ←  packages/api
 One crate per contract in the `contracts/` Cargo workspace. Signatures, storage keys, and the
 error enum are frozen in `docs/CONTRACT_SPEC.md` — read it before touching contract code.
 
-- **`ambassador`** — placeholder (admin + counter). Replace once the idea lands; then add its
-  name to `CONTRACTS` in the Makefile if you split it into several crates.
+- **`treasury`** — single-owner on-chain treasury: deposits USDC into a Blend V2 pool for yield,
+  gates every payout behind a separate approver. See `docs/CONTRACT_SPEC.md`.
 
 Use the **Makefile** from the repo root:
 
@@ -77,12 +81,12 @@ make test       # cargo unit tests
 make build      # compile to Wasm
 make bindings   # regenerate packages/contract-client from the Wasm + rebuild dist
 make deploy     # deploy + init every contract in CONTRACTS
-make invoke   CONTRACT=ambassador ARGS="bump --caller <G...>"
-make simulate CONTRACT=ambassador ARGS="get_counter"
+make invoke   CONTRACT=treasury ARGS="get_owner"
+make simulate CONTRACT=treasury ARGS="balance"
 ```
 
-Then set the printed ids in `packages/web/.env.local` as `NEXT_PUBLIC_AMBASSADOR_CONTRACT_ID`
-and in `packages/api/.env` as `AMBASSADOR_CONTRACT_ID`.
+Then set the printed ids in `packages/web/.env.local` as `NEXT_PUBLIC_TREASURY_CONTRACT_ID`
+and in `packages/api/.env` as `TREASURY_CONTRACT_ID`.
 
 Prereqs: Stellar CLI (`brew install stellar-cli`), Rust, and the Wasm target
 (`rustup target add wasm32v1-none`, done by `make setup`).
