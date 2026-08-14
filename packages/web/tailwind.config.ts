@@ -59,6 +59,8 @@ const config: Config = {
         'surface-dark': 'var(--color-surface-dark)',
         'surface-dark-alt': 'var(--color-surface-dark-alt)',
         'on-dark': 'var(--color-on-dark)',
+        'on-dark-muted': 'var(--color-on-dark-muted)',
+        'surface-dark-raised': 'var(--color-surface-dark-raised)',
         'accent-mint': 'var(--color-accent-mint)',
         'accent-green': 'var(--color-accent-green)',
         'accent-sage': 'var(--color-accent-sage)',

@@ -26,6 +26,11 @@
     --color-surface-dark: #151716;
     --color-surface-dark-alt: #121212;
     --color-on-dark: #ffffff;
+    /* Secondary text and raised surfaces on card-dark. Explicit tokens because Tailwind v3
+       silently emits no rule for an opacity modifier on a bare var() colour — `text-on-dark/70`
+       produces nothing at all, and `bg-on-dark/10` renders an invisible skeleton. */
+    --color-on-dark-muted: #b4b8b6;
+    --color-surface-dark-raised: #2b2d2c;
     --color-accent-mint: #00d4aa;
     --color-accent-green: #35d28b;
     --color-accent-sage: #b1ca85;

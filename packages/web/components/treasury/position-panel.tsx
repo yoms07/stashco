@@ -13,21 +13,21 @@ export function PositionPanel() {
   return (
     <Card variant="dark">
       <CardHeader>
-        <CardTitle className="text-eyebrow uppercase tracking-wide text-on-dark/70">
+        <CardTitle className="text-eyebrow uppercase tracking-wide text-on-dark-muted">
           Treasury position
         </CardTitle>
       </CardHeader>
       <CardContent>
         {isLoading ? (
-          <Skeleton className="h-12 w-48 bg-on-dark/10" />
+          <Skeleton className="h-12 w-48 bg-surface-dark-raised" />
         ) : isError ? (
-          <p className="text-sm text-on-dark/70">Could not read the treasury position.</p>
+          <p className="text-sm text-on-dark-muted">Could not read the treasury position.</p>
         ) : (
           <p className="font-display text-page-title text-on-dark">
             {formatUnitsToDecimal(data?.balanceUnits ?? '0')} <span className="text-xl">USDC</span>
           </p>
         )}
-        <p className="mt-sm text-sm text-on-dark/70">
+        <p className="mt-sm text-sm text-on-dark-muted">
           Supplied to Blend for yield. Grows on its own as interest accrues.
         </p>
       </CardContent>
