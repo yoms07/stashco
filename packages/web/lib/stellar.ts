@@ -13,7 +13,7 @@ export function getStellarConfig() {
     rpcUrl: process.env.NEXT_PUBLIC_SOROBAN_RPC_URL ?? net.rpcUrl,
     horizonUrl: process.env.NEXT_PUBLIC_HORIZON_URL ?? net.horizonUrl,
     /** Deployed contract id (C...). Empty until you deploy + set it. */
-    ambassadorContractId: process.env.NEXT_PUBLIC_AMBASSADOR_CONTRACT_ID ?? '',
+    treasuryContractId: process.env.NEXT_PUBLIC_TREASURY_CONTRACT_ID ?? '',
   };
 }
 

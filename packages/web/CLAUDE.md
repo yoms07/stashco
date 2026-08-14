@@ -153,10 +153,10 @@ flashes through the "connect wallet" state.
 ### Calling a contract
 
 ```typescript
-import { getAmbassadorClient } from '@/lib/contracts';
+import { getTreasuryClient } from '@/lib/contracts';
 
-const client = getAmbassadorClient(address);   // omit address for read-only simulation
-const tx = await client.bump({ caller: address });
+const client = getTreasuryClient(address);   // omit address for read-only simulation
+const tx = await client.balance();
 const { result } = await tx.signAndSend();
 ```
 

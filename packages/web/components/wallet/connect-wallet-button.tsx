@@ -1,5 +1,6 @@
 'use client';
 
+import { Button } from '@/components/ui/button';
 import { useWallet } from '@/providers/wallet-provider';
 import { useMe, useSignIn, useSignOut } from '@/services/auth';
 
@@ -19,46 +20,37 @@ export function ConnectWalletButton() {
 
   if (!isConnected || !address) {
     return (
-      <div className="flex flex-col items-start gap-1">
-        <button
-          type="button"
-          onClick={connect}
-          disabled={connecting}
-          className="rounded-md bg-black px-4 py-2 text-sm font-medium text-white disabled:opacity-50"
-        >
+      <div className="flex flex-col items-start gap-xs">
+        <Button type="button" onClick={connect} disabled={connecting}>
           {connecting ? 'Connecting…' : 'Connect Freighter'}
-        </button>
-        {error ? <p className="text-sm text-red-600">{error}</p> : null}
+        </Button>
+        {error ? <p className="text-sm text-error">{error}</p> : null}
       </div>
     );
   }
 
   return (
-    <div className="flex items-center gap-3">
-      <code className="text-sm" title={address}>
+    <div className="flex items-center gap-sm">
+      <code className="text-sm text-ink" title={address}>
         {truncate(address)}
       </code>
-      {network ? <span className="text-xs opacity-60">{network}</span> : null}
+      {network ? <span className="text-xs text-muted-soft">{network}</span> : null}
       {session ? (
-        <button
+        <Button
           type="button"
+          variant="outline"
+          size="sm"
           onClick={() => {
             signOut.mutate();
             disconnect();
           }}
-          className="rounded-md border px-3 py-1.5 text-sm"
         >
           Sign out
-        </button>
+        </Button>
       ) : (
-        <button
-          type="button"
-          onClick={() => signIn.mutate()}
-          disabled={signIn.isPending}
-          className="rounded-md bg-black px-3 py-1.5 text-sm text-white disabled:opacity-50"
-        >
+        <Button type="button" size="sm" onClick={() => signIn.mutate()} disabled={signIn.isPending}>
           {signIn.isPending ? 'Signing…' : 'Sign in'}
-        </button>
+        </Button>
       )}
     </div>
   );

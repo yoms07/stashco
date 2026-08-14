@@ -2,50 +2,79 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Design tokens translated from docs/DESIGN.md (Rho marketing design system) for product UI.
+ * See docs/DESIGN.md for the source values and the Known Gaps corrections applied below
+ * (body ~16px instead of measured 12px, eyebrow ~13px instead of measured 10.75px/8px,
+ * button-primary rounded.xs + 12x24 padding instead of the measured 0px/0px artifact).
+ */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-    --primary: 221.2 83.2% 53.3%;
-    --primary-foreground: 210 40% 98%;
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 221.2 83.2% 53.3%;
-    --radius: 0.5rem;
-  }
+    /* Colors */
+    --color-primary: #39efcd;
+    --color-ink: #212529;
+    --color-black: #000000;
+    --color-muted: #747c78;
+    --color-muted-soft: #868e96;
+    --color-slate: #64748b;
+    --color-hairline: #e0e0e0;
+    --color-hairline-soft: #ebebeb;
+    --color-canvas: #ffffff;
+    --color-surface-soft: #f5f5f5;
+    --color-surface-mint: #f6f8f8;
+    --color-surface-mint-alt: #f7f8f8;
+    --color-surface-dark: #151716;
+    --color-surface-dark-alt: #121212;
+    --color-on-dark: #ffffff;
+    --color-accent-mint: #00d4aa;
+    --color-accent-green: #35d28b;
+    --color-accent-sage: #b1ca85;
+    --color-accent-aqua: #aaeee4;
+    --color-accent-mint-pale: #cdfbf2;
+    --color-error: #c91829;
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-    --primary: 217.2 91.2% 59.8%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 224.3 76.3% 48%;
+    /* Radius scale */
+    --radius-xs: 4px;
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 32px;
+    --radius-pill: 100px;
+
+    /* Spacing scale, 4px base */
+    --spacing-xxs: 4px;
+    --spacing-xs: 8px;
+    --spacing-sm: 12px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-xxl: 40px;
+    --spacing-huge: 48px;
+    --spacing-section: 64px;
+    --spacing-section-lg: 90px;
+    --spacing-section-xl: 180px;
+
+    /* shadcn/ui semantic slots, mapped onto the tokens above */
+    --background: var(--color-canvas);
+    --foreground: var(--color-ink);
+    --card: var(--color-surface-soft);
+    --card-foreground: var(--color-ink);
+    --popover: var(--color-canvas);
+    --popover-foreground: var(--color-ink);
+    --primary: var(--color-primary);
+    --primary-foreground: var(--color-ink);
+    --secondary: var(--color-surface-soft);
+    --secondary-foreground: var(--color-ink);
+    --muted: var(--color-surface-soft);
+    --muted-foreground: var(--color-muted);
+    --accent: var(--color-accent-aqua);
+    --accent-foreground: var(--color-ink);
+    --destructive: var(--color-error);
+    --destructive-foreground: var(--color-on-dark);
+    --border: var(--color-hairline);
+    --input: var(--color-hairline);
+    --ring: var(--color-primary);
+    --radius: var(--radius-md);
   }
 }
 
@@ -54,6 +83,6 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-sans text-base;
   }
 }
