@@ -12,6 +12,11 @@ export const API_ENDPOINTS = {
     me: '/auth/me',
   },
 
+  // Payouts
+  payouts: {
+    meta: (requestId: number) => `/payouts/${requestId}/meta`,
+  },
+
   // Health check
   health: '/health',
 } as const;

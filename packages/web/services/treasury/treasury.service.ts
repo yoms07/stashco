@@ -1,18 +1,7 @@
-import { Treasury } from '@stellar-ambassador/contract-client';
-
 import { getTreasuryClient } from '@/lib/contracts';
+import { contractErrorVariant } from '@/lib/contract-errors';
 
 import type { DepositInput, TreasuryPosition } from './treasury.types';
-
-/**
- * `AssembledTransaction.result` extracts the contract error number from the simulation
- * diagnostics via regex, but the generated client's default `errorTypes` come from the Rust
- * `Error` enum's doc comments (client.js `spec.errorCases()`) — this contract has none, so
- * `.result.unwrapErr().message` is always `""`. The variant name lives in the hand-generated
- * `Treasury.Errors` map instead, keyed by the same number, so we re-parse the raw diagnostic
- * text ourselves (verified live against the deployed contract, see .scratch/specs/treasury-vault.md §7).
- */
-const CONTRACT_ERROR_PATTERN = /Error\(Contract, #(\d+)\)/;
 
 function friendlyDepositError(rawMessage: string): string {
   if (rawMessage.includes('trustline entry is missing for account')) {
@@ -22,10 +11,7 @@ function friendlyDepositError(rawMessage: string): string {
     return 'Your wallet holds no USDC to deposit.';
   }
 
-  const match = rawMessage.match(CONTRACT_ERROR_PATTERN);
-  const code = match ? Number(match[1]) : null;
-  const variant = code !== null ? Treasury.Errors[code as keyof typeof Treasury.Errors]?.message : undefined;
-  if (variant === 'InvalidAmount') {
+  if (contractErrorVariant(rawMessage) === 'InvalidAmount') {
     return 'Enter an amount greater than zero.';
   }
 
