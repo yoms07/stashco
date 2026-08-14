@@ -1,0 +1,16 @@
+{
+  "name": "stellar-ambassador",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --parallel -r dev",
+    "build": "pnpm --parallel -r build",
+    "typecheck": "pnpm --parallel -r typecheck",
+    "lint": "pnpm --parallel -r lint",
+    "format": "pnpm --parallel -r format"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2",
+    "prettier": "^3.4.2"
+  }
+}
