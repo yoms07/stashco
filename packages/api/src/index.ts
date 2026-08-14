@@ -7,6 +7,9 @@ import { loggerMiddleware } from './middleware/logger.middleware.js';
 import { errorHandler } from './middleware/error.middleware.js';
 import { health } from './routes/health.route.js';
 import { auth } from './routes/auth.route.js';
+import { treasury } from './routes/treasury.route.js';
+import { payouts } from './routes/payouts.route.js';
+import { TreasuryService } from './services/treasury.service.js';
 import type { HonoEnv } from './types/app.types.js';
 
 const app = new Hono<HonoEnv>();
@@ -18,6 +21,8 @@ app.use('*', loggerMiddleware);
 // Routes
 app.route('/health', health);
 app.route('/auth', auth);
+app.route('/treasury', treasury);
+app.route('/payouts', payouts);
 
 // Root endpoint
 app.get('/', (c) => {
@@ -48,5 +53,7 @@ logger.info(`Starting server in ${env.NODE_ENV} mode...`);
 serve({ fetch: app.fetch, port }, ({ port }) => {
   logger.info(`Server running on http://localhost:${port}`);
 });
+
+TreasuryService.startSnapshotCapture();
 
 export default app;

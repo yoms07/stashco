@@ -19,3 +19,29 @@ model Nonce {
   @@index([wallet, usedAt])
   @@map("nonces")
 }
+
+/// Off-chain metadata for a payout request. Vendor name, invoice ref and note are free text
+/// with no contract logic behind them (D-003) — the chain owns destination, amount and status.
+model PayoutMeta {
+  id         String   @id @default(cuid())
+  requestId  Int      @unique
+  vendorName String
+  invoiceRef String?
+  note       String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("payout_metas")
+}
+
+/// Periodic reading of the treasury's Blend position, purely to draw a yield-over-time chart —
+/// the chain only ever knows the position *now* (D-003).
+model PositionSnapshot {
+  id           String   @id @default(cuid())
+  capturedAt   DateTime
+  positionUsdc String
+  createdAt    DateTime @default(now())
+
+  @@index([capturedAt])
+  @@map("position_snapshots")
+}

@@ -16,7 +16,7 @@ const envSchema = z.object({
   // Stellar / Soroban — unprefixed equivalents of the web app's NEXT_PUBLIC_* vars
   STELLAR_NETWORK: z.string().default('testnet'),
   SOROBAN_RPC_URL: z.string().default('https://soroban-testnet.stellar.org'),
-  AMBASSADOR_CONTRACT_ID: z.string().optional(),
+  TREASURY_CONTRACT_ID: z.string().optional(),
 
   // Server keypair (secret seed, S...) for calls the backend submits on users' behalf.
   // Needs XLM for fees. Testnet only; leave unset to disable those endpoints.
