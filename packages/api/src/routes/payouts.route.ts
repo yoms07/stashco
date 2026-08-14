@@ -5,9 +5,20 @@ import { BadRequestError } from '../lib/errors.js';
 import { success } from '../lib/response.js';
 import { requireAuth } from '../middleware/auth.middleware.js';
 import { PayoutMetaService } from '../services/payout-meta.service.js';
+import { PayoutService } from '../services/payout.service.js';
 import type { HonoEnv } from '../types/app.types.js';
 
 const payouts = new Hono<HonoEnv>();
+
+payouts.get('/', async (c) => {
+  const list = await PayoutService.getAll();
+  return success(c, list);
+});
+
+payouts.get('/pending', async (c) => {
+  const list = await PayoutService.getPending();
+  return success(c, list);
+});
 
 payouts.post(
   '/:requestId/meta',

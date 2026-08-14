@@ -3,6 +3,7 @@ import { Hono } from 'hono';
 import { payouts } from '../payouts.route.js';
 import { errorHandler } from '../../middleware/error.middleware.js';
 import { PayoutMetaService } from '../../services/payout-meta.service.js';
+import { PayoutService } from '../../services/payout.service.js';
 import { ForbiddenError, NotFoundError, UnauthorizedError } from '../../lib/errors.js';
 import type { HonoEnv } from '../../types/app.types.js';
 
@@ -11,6 +12,13 @@ const ADDRESS = 'GAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAWHF';
 vi.mock('../../services/payout-meta.service.js', () => ({
   PayoutMetaService: {
     upsert: vi.fn(),
+  },
+}));
+
+vi.mock('../../services/payout.service.js', () => ({
+  PayoutService: {
+    getAll: vi.fn(),
+    getPending: vi.fn(),
   },
 }));
 
@@ -28,6 +36,52 @@ describe('Payouts Route', () => {
 
   beforeEach(() => {
     vi.clearAllMocks();
+  });
+
+  it('GET /payouts returns the joined list from the service', async () => {
+    vi.mocked(PayoutService.getAll).mockResolvedValue([
+      {
+        id: 0,
+        destination: 'GBL4TKOXBNQOXFPHBPZQTWJS5UWROHNS2U6PIDDNLGFKCQUWN2MANEUY',
+        amount: '50000000',
+        memo: 'invoice 1042 acme',
+        status: 'Approved',
+        vendorName: null,
+        invoiceRef: null,
+        note: null,
+      },
+    ]);
+
+    const res = await app.request('/payouts');
+
+    expect(res.status).toBe(200);
+    const json = (await res.json()) as { success: boolean; data: unknown[] };
+    expect(json.success).toBe(true);
+    expect(json.data).toHaveLength(1);
+    expect(PayoutService.getAll).toHaveBeenCalled();
+  });
+
+  it('GET /payouts/pending returns the pending-filtered list from the service', async () => {
+    vi.mocked(PayoutService.getPending).mockResolvedValue([
+      {
+        id: 1,
+        destination: 'GBL4TKOXBNQOXFPHBPZQTWJS5UWROHNS2U6PIDDNLGFKCQUWN2MANEUY',
+        amount: '25000000',
+        memo: 'invoice 1043 globex',
+        status: 'Pending',
+        vendorName: null,
+        invoiceRef: null,
+        note: null,
+      },
+    ]);
+
+    const res = await app.request('/payouts/pending');
+
+    expect(res.status).toBe(200);
+    const json = (await res.json()) as { success: boolean; data: { status: string }[] };
+    expect(json.success).toBe(true);
+    expect(json.data.every((p) => p.status === 'Pending')).toBe(true);
+    expect(PayoutService.getPending).toHaveBeenCalled();
   });
 
   it('POST /payouts/:requestId/meta upserts and returns the metadata', async () => {

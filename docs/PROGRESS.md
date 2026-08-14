@@ -59,12 +59,36 @@ bTokens leaking through). `deployer` retains ~100 USDC for later UI testing.
   `badge`, `table`, `dialog`, `skeleton` restyled onto the tokens. No inline hex anywhere in
   `packages/web` outside the token definitions.
 
+## Backend track complete (#8–#11)
+
+`GET /treasury/position` · `GET /treasury/position/history` · `POST /payouts/:id/meta` ·
+`GET /payouts` · `GET /payouts/pending`. 39 tests passing.
+
+Owner/approver are simulated fresh from the contract per request and never read from the JWT
+(D-002) — `set_approver` is callable, so a cached role is a live authorization bypass.
+Request state is never persisted to Postgres; metadata is a left join on top of chain truth
+(D-003), verified in both directions against live data.
+
+## The security claim, proven on-chain
+
+Not just unit-tested — executed on testnet against the deployed contract:
+
+1. Owner queued request 0.
+2. **Owner tried to approve it → rejected**, `Missing signing key for account GD3MA2JB…`
+   (the approver). Request stayed `Pending` rather than being consumed.
+3. Approver approved → vendor `GBL4TKOX…` went 0 → **5.0000000 USDC**.
+4. Position dropped `4000000064` → `3950000043`.
+
+On-chain now: request 0 `Approved`, requests 1 and 2 `Pending` (real data for the approver
+inbox). Request 1 has a `PayoutMeta` row ("Globex"); 0 and 2 deliberately do not, so the left
+join stays honest.
+
 ## Not done / next
 
-1. `GET /treasury/position` + `/history` and snapshot capture (#9) — **in flight**.
-2. `packages/web` treasury dashboard + deposit form (#13) — **in flight**.
-3. Payout metadata endpoint (#10), then the listing endpoints (#11).
-4. Owner payout view (#14), approver inbox (#15), yield chart (#16).
+1. Owner payout view (#14) — **in flight**.
+2. Approver inbox (#15), then the yield chart (#16).
+
+Run only one agent at a time inside `packages/web` — #14/#15/#16 all touch `app/page.tsx`.
 
 ## Local dev dependencies
 
