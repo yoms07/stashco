@@ -39,10 +39,10 @@
 
 | Requirement | Status | Details |
 | --- | --- | --- |
-| Public GitHub repository | ⏳ | Repo is currently **private** — flip to public before submitting |
+| Public GitHub repository | ⏳ | Flip to public before submitting |
 | Complete README documentation | ✅ | This document |
-| 10+ meaningful commits | ✅ | 16 commits — `git log --oneline` |
-| Live demo link | ✅ | **https://stashco.vercel.app** |
+| 10+ meaningful commits | ✅ | 21 commits — `git log --oneline` |
+| Live demo link | ✅ | **<https://stashco.vercel.app>** |
 | Contract deployment address | ✅ | `CBHMF3HL4XA5XCVIEGPLBPNDIMEUP5YFHFSJAE6G6545M5HWWT5OP6R7` |
 | Transaction hash for contract interaction | ✅ | Six real testnet hashes — [On-Chain Verification](#on-chain-verification) |
 | Mobile responsive UI screenshot | ✅ | [`assets/mobile.png`](./assets/mobile.png) |
@@ -55,12 +55,9 @@
 
 **Demo URL:** **<https://stashco.vercel.app>**
 
-> **Note:** the deployed frontend currently points `NEXT_PUBLIC_API_URL` at `localhost`, so the
-> hosted demo serves only the chain-read features — treasury position, the deposit form, and
-> owner/approver gating. Sign-in, the approver inbox and the yield chart need the API, which is
-> not yet hosted. Run the stack locally (see [Getting Started](#getting-started)) for the full
-> two-wallet flow. `NEXT_PUBLIC_*` is inlined at build time, so pointing it at a deployed API
-> requires a redeploy, not just an env change.
+> Chain-read features (position, deposit, owner/approver gating) work on the hosted link.
+> Sign-in, the approver inbox and the yield chart need the API — not yet hosted, see
+> [Pending](#pending). Run locally for the full two-wallet flow.
 
 **Network:** Stellar Testnet · **Wallet:** [Freighter](https://www.freighter.app/), set to Testnet
 
@@ -387,6 +384,17 @@ pnpm --filter @stashco/api test     # 39
 The Blend pool is mocked in unit tests — with the live `b_rate` and its flooring behaviour, so
 bTokens-vs-underlying confusion fails loudly. The real Blend interaction is proven on testnet
 instead, by the spike and by the deposit above.
+
+---
+
+## Pending
+
+- [ ] Flip the repo to public
+- [ ] Host the API, set `NEXT_PUBLIC_API_URL` + `CORS_ORIGIN`, redeploy Vercel — unlocks
+      sign-in, the approver inbox and the yield chart on the hosted link
+      (`NEXT_PUBLIC_*` is build-time, so it needs a rebuild)
+- [ ] Set the session cookie `SameSite=None; Secure` for cross-site auth
+- [ ] Exercise deposit / request / approve with a real Freighter signature
 
 ---
 
