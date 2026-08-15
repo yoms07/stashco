@@ -41,7 +41,7 @@
 | --- | --- | --- |
 | Public GitHub repository | ⏳ | Repo is currently **private** — flip to public before submitting |
 | Complete README documentation | ✅ | This document |
-| 10+ meaningful commits | ✅ | 13 commits — [Commit History](#commit-history) |
+| 10+ meaningful commits | ✅ | 14 commits — `git log --oneline` |
 | Live demo link | ⏳ | [Placeholder — deploy and update](#live-demo) |
 | Contract deployment address | ✅ | `CBHMF3HL4XA5XCVIEGPLBPNDIMEUP5YFHFSJAE6G6545M5HWWT5OP6R7` |
 | Transaction hash for contract interaction | ✅ | Six real testnet hashes — [On-Chain Verification](#on-chain-verification) |
@@ -385,28 +385,6 @@ pnpm --filter @stashco/api test     # 39
 The Blend pool is mocked in unit tests — with the live `b_rate` and its flooring behaviour, so
 bTokens-vs-underlying confusion fails loudly. The real Blend interaction is proven on testnet
 instead, by the spike and by the deposit above.
-
----
-
-## Commit History
-
-13 commits. `git log --oneline`:
-
-| # | Commit | Description |
-| --- | --- | --- |
-| 1 | `feat` | Scaffold Stellar/Soroban dApp on the monorepo template |
-| 2 | `feat(contracts)` | Replace the placeholder with the treasury vault |
-| 3 | `feat(contract-client)` | Regenerate bindings for treasury |
-| 4 | `feat(api)` | Treasury position, snapshot capture, payout metadata |
-| 5 | `feat(web)` | Design system foundation and treasury dashboard |
-| 6 | `docs` | Freeze the treasury interface, record the Blend findings |
-| 7 | `feat(api)` | Payout listing endpoints for the approver inbox |
-| 8 | `feat(web)` | Owner view for queueing a payout |
-| 9 | `fix(api)` | Load `.env` in dev and start |
-| 10 | `fix(web)` | Make invisible text visible |
-| 11 | `feat(web)` | Approver inbox with approve and reject |
-| 12 | `refactor` | Rename the package scope to `@stashco` |
-| 13 | `ci` | Add GitHub Actions pipeline |
 
 ---
 
