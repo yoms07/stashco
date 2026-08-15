@@ -42,20 +42,25 @@
 | Public GitHub repository | ⏳ | Repo is currently **private** — flip to public before submitting |
 | Complete README documentation | ✅ | This document |
 | 10+ meaningful commits | ✅ | 16 commits — `git log --oneline` |
-| Live demo link | ⏳ | [Placeholder — deploy and update](#live-demo) |
+| Live demo link | ✅ | **https://stashco.vercel.app** |
 | Contract deployment address | ✅ | `CBHMF3HL4XA5XCVIEGPLBPNDIMEUP5YFHFSJAE6G6545M5HWWT5OP6R7` |
 | Transaction hash for contract interaction | ✅ | Six real testnet hashes — [On-Chain Verification](#on-chain-verification) |
 | Mobile responsive UI screenshot | ✅ | [`assets/mobile.png`](./assets/mobile.png) |
-| CI/CD pipeline screenshot | ⏳ | [Pipeline is green](https://github.com/yoms07/stashco/actions/runs/31877078347) — save the capture as `assets/ci.png` |
-| Test output (3+ passing tests) | ✅ | **56 passing** (17 contract + 39 API) — [Test Results](#test-results) |
+| CI/CD pipeline screenshot | ✅ | [`assets/ci.png`](./assets/ci.png) — both jobs green |
+| Test output (3+ passing tests) | ✅ | [`assets/test.png`](./assets/test.png) — **56 passing** (17 contract + 39 API) |
 
 ---
 
 ## Live Demo
 
-> **Placeholder:** replace with the deployed frontend URL.
+**Demo URL:** **<https://stashco.vercel.app>**
 
-**Demo URL:** `https://your-demo-url.vercel.app`
+> **Note:** the deployed frontend currently points `NEXT_PUBLIC_API_URL` at `localhost`, so the
+> hosted demo serves only the chain-read features — treasury position, the deposit form, and
+> owner/approver gating. Sign-in, the approver inbox and the yield chart need the API, which is
+> not yet hosted. Run the stack locally (see [Getting Started](#getting-started)) for the full
+> two-wallet flow. `NEXT_PUBLIC_*` is inlined at build time, so pointing it at a deployed API
+> requires a redeploy, not just an env change.
 
 **Network:** Stellar Testnet · **Wallet:** [Freighter](https://www.freighter.app/), set to Testnet
 
@@ -152,13 +157,13 @@ chart to a straight line.
 
 ### CI/CD pipeline
 
-> **Placeholder:** capture the [green run](https://github.com/yoms07/stashco/actions/runs/31877078347) and save as `assets/ci.png`
-
 ![CI/CD](./assets/ci.png)
+
+Both jobs green: `Soroban contract — build & test` and `TypeScript — typecheck, test & build`.
 
 ### Test output
 
-> **Placeholder:** add `assets/test.png`
+![Test output](./assets/test.png)
 
 ```text
 running 17 tests
