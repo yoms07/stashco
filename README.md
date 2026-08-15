@@ -415,6 +415,7 @@ Stated plainly rather than hidden:
 
 | Document | Contents |
 | --- | --- |
+| `docs/DEPLOY.md` | Vercel + API deployment, env vars, cross-site gotchas |
 | `docs/PLAN.md` | What it is and why |
 | `docs/CONTRACT_SPEC.md` | Frozen contract interface |
 | `docs/API_SPEC.md` | Endpoint shapes |
