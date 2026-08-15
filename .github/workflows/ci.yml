@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  contracts:
+    name: Soroban contract — build & test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32v1-none
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: contracts
+      - name: cargo test
+        working-directory: contracts
+        run: cargo test --workspace
+
+  node:
+    name: TypeScript — typecheck, test & build
+    runs-on: ubuntu-latest
+    env:
+      # The API validates its env at import time; tests mock the chain and the database,
+      # so these only need to be well-formed, not real.
+      DATABASE_URL: postgresql://user:password@localhost:5432/stashco?schema=public
+      SESSION_SECRET: ci-session-secret-at-least-32-characters-long
+      STELLAR_NETWORK: testnet
+      SOROBAN_RPC_URL: https://soroban-testnet.stellar.org
+      TREASURY_CONTRACT_ID: CBHMF3HL4XA5XCVIEGPLBPNDIMEUP5YFHFSJAE6G6545M5HWWT5OP6R7
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter @stashco/api prisma:generate
+      - run: pnpm -r typecheck
+      - run: pnpm --filter @stashco/api test
+      - run: pnpm -r build
