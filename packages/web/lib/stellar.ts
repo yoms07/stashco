@@ -1,4 +1,4 @@
-import { getNetworkConfig, type StellarNetwork } from '@stellar-ambassador/shared';
+import { getNetworkConfig, type StellarNetwork } from '@stashco/shared';
 
 /**
  * Runtime Stellar config for the web app, assembled from public env vars.

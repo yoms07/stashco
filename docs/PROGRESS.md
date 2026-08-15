@@ -46,7 +46,7 @@ bTokens leaking through). `deployer` retains ~100 USDC for later UI testing.
 
 - `cd contracts && cargo test` → 17 passed (treasury only; the `ambassador` crate is deleted)
 - `pnpm -r typecheck` → clean across all packages after removing every `ambassador` reference
-- `pnpm --filter @stellar-ambassador/contract-client build` → clean, `dist/` regenerated
+- `pnpm --filter @stashco/contract-client build` → clean, `dist/` regenerated
 
 ## Also done (landed in parallel with the contract track)
 

@@ -18,9 +18,9 @@ This file provides guidance to Claude Code when working in this monorepo.
 **StashCo** is a Web3 dApp on Stellar (Soroban). Wallet is identity — there is no
 email, no password, no user table (D-001).
 
-> The product name is **StashCo**. The repo directory `stellar-ambassador` and the
-> `@stellar-ambassador/*` package scope are legacy scaffolding — do not rename them, and do not
-> put them in user-facing copy.
+> The product name is **StashCo**, and packages are scoped `@stashco/*`. Only the local
+> directory is still named `stellar-ambassador` — that is incidental, and it must never
+> appear in user-facing copy.
 
 Packages:
 - `contracts/` — Soroban (Rust) smart contracts. Cargo workspace, not an npm package.
@@ -42,8 +42,8 @@ Packages:
 
 ```bash
 pnpm dev                                       # all packages in parallel
-pnpm --filter @stellar-ambassador/api dev      # backend only
-pnpm --filter @stellar-ambassador/web dev      # frontend only
+pnpm --filter @stashco/api dev      # backend only
+pnpm --filter @stashco/web dev      # frontend only
 
 pnpm build        # topological build (shared + contract-client first)
 pnpm typecheck
@@ -96,7 +96,7 @@ Prereqs: Stellar CLI (`brew install stellar-cli`), Rust, and the Wasm target
 Frontend integration lives in `packages/web`:
 - `providers/wallet-provider.tsx` — `<WalletProvider>` + `useWallet()` (connect/disconnect,
   address, network, restore-on-mount, account-change watcher)
-- `lib/stellar.ts` — runtime network config from `NEXT_PUBLIC_*` + `@stellar-ambassador/shared`
+- `lib/stellar.ts` — runtime network config from `NEXT_PUBLIC_*` + `@stashco/shared`
 - `lib/contracts.ts` — contract client bound to the connected wallet for signing
 - `components/wallet/connect-wallet-button.tsx` — connect + sign-in control
 
@@ -110,9 +110,9 @@ Service domains follow the `services/` pattern (types / queries / service / hook
   on money and entitlement; Postgres is a filing cabinet (D-003).
 
 ```bash
-pnpm --filter @stellar-ambassador/api prisma:generate
-pnpm --filter @stellar-ambassador/api prisma:migrate
-pnpm --filter @stellar-ambassador/api prisma:studio
+pnpm --filter @stashco/api prisma:generate
+pnpm --filter @stashco/api prisma:migrate
+pnpm --filter @stashco/api prisma:studio
 ```
 
 ## Authentication

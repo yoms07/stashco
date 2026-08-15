@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { deleteCookie, setCookie } from 'hono/cookie';
-import { ChallengeRequestSchema, VerifyRequestSchema } from '@stellar-ambassador/shared';
+import { ChallengeRequestSchema, VerifyRequestSchema } from '@stashco/shared';
 import { env } from '../config/env.js';
 import { requireAuth } from '../middleware/auth.middleware.js';
 import { SESSION_COOKIE, signSessionToken } from '../lib/jwt.js';

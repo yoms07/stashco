@@ -1,5 +1,5 @@
 import type { PayoutMeta } from '@prisma/client';
-import type { PayoutMetaRequest } from '@stellar-ambassador/shared';
+import type { PayoutMetaRequest } from '@stashco/shared';
 import { prisma } from '../config/database.js';
 import { ForbiddenError, InternalServerError, NotFoundError } from '../lib/errors.js';
 import { readClient } from '../lib/soroban.js';

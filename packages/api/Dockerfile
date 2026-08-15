@@ -23,8 +23,8 @@ COPY packages/api ./packages/api
 COPY packages/shared ./packages/shared
 
 # Build shared package first, then api
-RUN pnpm --filter @stellar-ambassador/shared build && \
-    pnpm --filter @stellar-ambassador/api build
+RUN pnpm --filter @stashco/shared build && \
+    pnpm --filter @stashco/api build
 
 # Production stage
 FROM base AS production

@@ -1,4 +1,4 @@
-import { Keypair, hash } from '@stellar-ambassador/contract-client';
+import { Keypair, hash } from '@stashco/contract-client';
 
 /**
  * Verifies a Freighter `signMessage` signature against a Stellar address.

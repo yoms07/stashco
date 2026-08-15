@@ -1,7 +1,7 @@
 # StashCo
 
-> The product is **StashCo**. The repo directory and the `@stellar-ambassador/*` package scope
-> are scaffolding from the original template and are deliberately left unrenamed.
+> The product is **StashCo**. The local directory is still `stellar-ambassador`; the GitHub
+> repo and the `@stashco/*` package scope carry the real name.
 
 A Stellar / Soroban dApp monorepo. Wallet is identity; the chain is the authority on state
 that matters.
@@ -20,7 +20,7 @@ pnpm install
 cp packages/api/.env.example packages/api/.env
 cp packages/web/.env.example packages/web/.env.local
 
-pnpm --filter @stellar-ambassador/api prisma:migrate   # needs a running postgres
+pnpm --filter @stashco/api prisma:migrate   # needs a running postgres
 pnpm dev
 ```
 

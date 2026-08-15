@@ -2,7 +2,7 @@
 
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 
-import type { PayoutMetaRequest } from '@stellar-ambassador/shared';
+import type { PayoutMetaRequest } from '@stashco/shared';
 
 import { useWallet } from '@/providers/wallet-provider';
 import { treasuryKeys } from '@/services/treasury';

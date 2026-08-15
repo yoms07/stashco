@@ -1,5 +1,5 @@
-import { Treasury, contract, Keypair } from '@stellar-ambassador/contract-client';
-import { getNetworkConfig } from '@stellar-ambassador/shared';
+import { Treasury, contract, Keypair } from '@stashco/contract-client';
+import { getNetworkConfig } from '@stashco/shared';
 import { env } from '../config/env.js';
 
 /**

@@ -1,4 +1,4 @@
-import { Treasury } from '@stellar-ambassador/contract-client';
+import { Treasury } from '@stashco/contract-client';
 import { signTransaction } from '@stellar/freighter-api';
 
 import { getStellarConfig } from './stellar';

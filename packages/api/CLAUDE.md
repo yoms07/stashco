@@ -1,4 +1,4 @@
-# CLAUDE.md — Backend API (`@stellar-ambassador/api`)
+# CLAUDE.md — Backend API (`@stashco/api`)
 
 This file provides guidance to Claude Code when working in this package.
 
@@ -101,7 +101,7 @@ Follow this pattern for new routes:
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { success } from '../lib/response.js';
-import { CreateItemSchema } from '@stellar-ambassador/shared';
+import { CreateItemSchema } from '@stashco/shared';
 
 const items = new Hono();
 
@@ -243,8 +243,8 @@ pnpm prisma:migrate
 Import shared types from the shared package:
 
 ```typescript
-import { User, CreateUser, UpdateUser } from '@stellar-ambassador/shared';
-import { UserSchema } from '@stellar-ambassador/shared';
+import { User, CreateUser, UpdateUser } from '@stashco/shared';
+import { UserSchema } from '@stashco/shared';
 
 // Use schemas for validation
 const result = UserSchema.parse(data);

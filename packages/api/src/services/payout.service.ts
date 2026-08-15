@@ -1,4 +1,4 @@
-import type { Payout } from '@stellar-ambassador/shared';
+import type { Payout } from '@stashco/shared';
 import { prisma } from '../config/database.js';
 import { InternalServerError } from '../lib/errors.js';
 import { readClient } from '../lib/soroban.js';

@@ -1,5 +1,5 @@
 import { signMessage } from '@stellar/freighter-api';
-import type { ApiResponse } from '@stellar-ambassador/shared';
+import type { ApiResponse } from '@stashco/shared';
 
 import { ApiClient } from '../api/client';
 import { API_ENDPOINTS } from '../api/endpoints';

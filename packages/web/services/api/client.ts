@@ -1,4 +1,4 @@
-import type { ApiResponse } from '@stellar-ambassador/shared';
+import type { ApiResponse } from '@stashco/shared';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001';
 

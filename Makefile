@@ -56,7 +56,7 @@ bindings: build ## Regenerate the TypeScript client(s) + rebuild dist
 		cp tmp-bindings/src/index.ts $(CLIENT_DIR)/src/$$c.ts; \
 		rm -rf tmp-bindings; \
 	done
-	pnpm --filter @stellar-ambassador/contract-client build
+	pnpm --filter @stashco/contract-client build
 
 deploy: build ## Deploy every contract in CONTRACTS and init it (owner=OWNER, approver=APPROVER, pool=POOL, usdc=USDC)
 	@for c in $(CONTRACTS); do \

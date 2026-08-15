@@ -1,4 +1,4 @@
-# @stellar-ambassador/contract-client
+# @stashco/contract-client
 
 **Generated** TypeScript bindings for the Soroban contracts — the on-chain "ABI" that lets
 the frontend and backend call the contracts type-safely.
@@ -24,7 +24,7 @@ The bindings are generated from the Wasm spec, so they carry no baked-in `networ
 constant. Construct a client with the network + deployed contract id yourself:
 
 ```ts
-import { Ambassador } from '@stellar-ambassador/contract-client';
+import { Ambassador } from '@stashco/contract-client';
 
 const client = new Ambassador.Client({
   contractId,

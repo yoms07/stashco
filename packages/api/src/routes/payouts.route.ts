@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
-import { PayoutMetaRequestSchema } from '@stellar-ambassador/shared';
+import { PayoutMetaRequestSchema } from '@stashco/shared';
 import { BadRequestError } from '../lib/errors.js';
 import { success } from '../lib/response.js';
 import { requireAuth } from '../middleware/auth.middleware.js';

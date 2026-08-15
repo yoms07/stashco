@@ -1,4 +1,4 @@
-# CLAUDE.md — Shared Package (`@stellar-ambassador/shared`)
+# CLAUDE.md — Shared Package (`@stashco/shared`)
 
 This file provides guidance to Claude Code when working in this package.
 
@@ -63,7 +63,7 @@ export * from './schemas/post.schema.js';
 ## Consuming in Backend
 
 ```typescript
-import { PostSchema, type CreatePost } from '@stellar-ambassador/shared';
+import { PostSchema, type CreatePost } from '@stashco/shared';
 import { zValidator } from '@hono/zod-validator';
 
 posts.post('/', zValidator('json', CreatePostSchema), async (c) => {
@@ -74,8 +74,8 @@ posts.post('/', zValidator('json', CreatePostSchema), async (c) => {
 ## Consuming in Frontend
 
 ```typescript
-import type { Post, CreatePost } from '@stellar-ambassador/shared';
-import { PostSchema } from '@stellar-ambassador/shared';
+import type { Post, CreatePost } from '@stashco/shared';
+import { PostSchema } from '@stashco/shared';
 
 // In service
 export class PostService {

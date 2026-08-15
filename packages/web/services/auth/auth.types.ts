@@ -1,4 +1,4 @@
-import type { ChallengeResponse, Session } from '@stellar-ambassador/shared';
+import type { ChallengeResponse, Session } from '@stashco/shared';
 
 export type { ChallengeResponse, Session };
 

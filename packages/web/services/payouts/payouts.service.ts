@@ -1,4 +1,4 @@
-import type { ApiResponse, Payout, PayoutMeta, PayoutMetaRequest } from '@stellar-ambassador/shared';
+import type { ApiResponse, Payout, PayoutMeta, PayoutMetaRequest } from '@stashco/shared';
 
 import { getTreasuryClient } from '@/lib/contracts';
 import { contractErrorVariant } from '@/lib/contract-errors';

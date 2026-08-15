@@ -1,4 +1,4 @@
-import { Treasury } from '@stellar-ambassador/contract-client';
+import { Treasury } from '@stashco/contract-client';
 
 /**
  * `AssembledTransaction.result`'s default `errorTypes` come from `spec.errorCases()`, which

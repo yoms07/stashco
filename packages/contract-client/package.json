@@ -1,5 +1,5 @@
 {
-  "name": "@stellar-ambassador/contract-client",
+  "name": "@stashco/contract-client",
   "version": "0.1.0",
   "private": true,
   "type": "module",

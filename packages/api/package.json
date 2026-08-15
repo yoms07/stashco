@@ -1,5 +1,5 @@
 {
-  "name": "@stellar-ambassador/api",
+  "name": "@stashco/api",
   "version": "0.1.0",
   "private": true,
   "type": "module",
@@ -26,8 +26,8 @@
     "@prisma/client": "^6.2.0",
     "@hono/node-server": "^1.13.7",
     "@hono/zod-validator": "^0.4.1",
-    "@stellar-ambassador/contract-client": "workspace:*",
-    "@stellar-ambassador/shared": "workspace:*"
+    "@stashco/contract-client": "workspace:*",
+    "@stashco/shared": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "^22.10.5",

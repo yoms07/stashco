@@ -1,4 +1,4 @@
-# CLAUDE.md — Frontend (`@stellar-ambassador/web`)
+# CLAUDE.md — Frontend (`@stashco/web`)
 
 This file provides guidance to Claude Code when working in this package.
 
@@ -185,8 +185,8 @@ npx shadcn add dialog
 Import shared types from the monorepo shared package:
 
 ```typescript
-import type { User, CreateUser } from '@stellar-ambassador/shared';
-import { UserSchema } from '@stellar-ambassador/shared';
+import type { User, CreateUser } from '@stashco/shared';
+import { UserSchema } from '@stashco/shared';
 ```
 
 ## Best Practices

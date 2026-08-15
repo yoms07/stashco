@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 
-import type { Payout } from '@stellar-ambassador/shared';
+import type { Payout } from '@stashco/shared';
 
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
