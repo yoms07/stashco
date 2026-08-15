@@ -15,6 +15,7 @@ export const API_ENDPOINTS = {
   // Payouts
   payouts: {
     meta: (requestId: number) => `/payouts/${requestId}/meta`,
+    pending: '/payouts/pending',
   },
 
   // Health check

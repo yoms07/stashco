@@ -18,3 +18,18 @@ export interface RequestPayoutInput {
   amountUnits: bigint;
   memo: string;
 }
+
+export interface ApprovePayoutInput {
+  /** The connected wallet address — must be the on-chain approver. */
+  address: string;
+  id: number;
+  destination: string;
+  /** Raw i128 units at 7 decimals, as a decimal string — needed to size the InsufficientFunds shortfall message. */
+  amountUnits: string;
+}
+
+export interface RejectPayoutInput {
+  /** The connected wallet address — must be the on-chain approver. */
+  address: string;
+  id: number;
+}

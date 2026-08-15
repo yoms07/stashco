@@ -3,6 +3,7 @@
 import { ConnectWalletButton } from '@/components/wallet/connect-wallet-button';
 import { DepositForm } from '@/components/treasury/deposit-form';
 import { PositionPanel } from '@/components/treasury/position-panel';
+import { ApproverInbox } from '@/components/payouts/approver-inbox';
 import { RequestPayoutForm } from '@/components/payouts/request-payout-form';
 import { getStellarConfig } from '@/lib/stellar';
 import { useWallet } from '@/providers/wallet-provider';
@@ -43,6 +44,7 @@ export default function Home() {
               <PositionPanel />
               <DepositForm />
               <RequestPayoutForm />
+              <ApproverInbox />
             </div>
           ) : (
             <p className="text-sm text-muted-soft">Connect a wallet to see the treasury position.</p>
