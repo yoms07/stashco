@@ -45,8 +45,8 @@
 | Live demo link | ⏳ | [Placeholder — deploy and update](#live-demo) |
 | Contract deployment address | ✅ | `CBHMF3HL4XA5XCVIEGPLBPNDIMEUP5YFHFSJAE6G6545M5HWWT5OP6R7` |
 | Transaction hash for contract interaction | ✅ | Six real testnet hashes — [On-Chain Verification](#on-chain-verification) |
-| Mobile responsive UI screenshot | ⏳ | Add `docs/mobile.png` |
-| CI/CD pipeline screenshot | ⏳ | Add `docs/ci.png` — [pipeline is green](https://github.com/yoms07/stashco/actions/runs/31877078347), just needs the capture |
+| Mobile responsive UI screenshot | ✅ | [`assets/mobile.png`](./assets/mobile.png) |
+| CI/CD pipeline screenshot | ⏳ | [Pipeline is green](https://github.com/yoms07/stashco/actions/runs/31877078347) — save the capture as `assets/ci.png` |
 | Test output (3+ passing tests) | ✅ | **56 passing** (17 contract + 39 API) — [Test Results](#test-results) |
 
 ---
@@ -144,25 +144,21 @@ chart to a straight line.
 
 ### Desktop UI
 
-> **Placeholder:** add `docs/web.png`
-
-![Web UI](./docs/web.png)
+![Web UI](./assets/web.png)
 
 ### Mobile responsive UI
 
-> **Placeholder:** add `docs/mobile.png`
-
-![Mobile UI](./docs/mobile.png)
+![Mobile UI](./assets/mobile.png)
 
 ### CI/CD pipeline
 
-> **Placeholder:** capture a successful Actions run and save as `docs/ci.png`
+> **Placeholder:** capture the [green run](https://github.com/yoms07/stashco/actions/runs/31877078347) and save as `assets/ci.png`
 
-![CI/CD](./docs/ci.png)
+![CI/CD](./assets/ci.png)
 
 ### Test output
 
-> **Placeholder:** add `docs/test.png`
+> **Placeholder:** add `assets/test.png`
 
 ```text
 running 17 tests
