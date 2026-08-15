@@ -39,7 +39,7 @@
 
 | Requirement | Status | Details |
 | --- | --- | --- |
-| Public GitHub repository | ⏳ | Flip to public before submitting |
+| Public GitHub repository | ✅ | <https://github.com/yoms07/stashco> |
 | Complete README documentation | ✅ | This document |
 | 10+ meaningful commits | ✅ | 21 commits — `git log --oneline` |
 | Live demo link | ✅ | **<https://stashco.vercel.app>** |
@@ -389,7 +389,6 @@ instead, by the spike and by the deposit above.
 
 ## Pending
 
-- [ ] Flip the repo to public
 - [ ] Host the API, set `NEXT_PUBLIC_API_URL` + `CORS_ORIGIN`, redeploy Vercel — unlocks
       sign-in, the approver inbox and the yield chart on the hosted link
       (`NEXT_PUBLIC_*` is build-time, so it needs a rebuild)
