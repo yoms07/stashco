@@ -41,12 +41,12 @@
 | --- | --- | --- |
 | Public GitHub repository | ⏳ | Repo is currently **private** — flip to public before submitting |
 | Complete README documentation | ✅ | This document |
-| 10+ meaningful commits | ✅ | 14 commits — `git log --oneline` |
+| 10+ meaningful commits | ✅ | 16 commits — `git log --oneline` |
 | Live demo link | ⏳ | [Placeholder — deploy and update](#live-demo) |
 | Contract deployment address | ✅ | `CBHMF3HL4XA5XCVIEGPLBPNDIMEUP5YFHFSJAE6G6545M5HWWT5OP6R7` |
 | Transaction hash for contract interaction | ✅ | Six real testnet hashes — [On-Chain Verification](#on-chain-verification) |
 | Mobile responsive UI screenshot | ⏳ | Add `docs/mobile.png` |
-| CI/CD pipeline screenshot | ⏳ | Add `docs/ci.png` — workflow is committed and runs on push |
+| CI/CD pipeline screenshot | ⏳ | Add `docs/ci.png` — [pipeline is green](https://github.com/yoms07/stashco/actions/runs/31877078347), just needs the capture |
 | Test output (3+ passing tests) | ✅ | **56 passing** (17 contract + 39 API) — [Test Results](#test-results) |
 
 ---
@@ -348,7 +348,8 @@ approver and release it. That dead end is the product working.
 
 ## CI/CD
 
-`.github/workflows/ci.yml` runs on every push and pull request to `main`:
+`.github/workflows/ci.yml` runs on every push and pull request to `main`.
+[Latest run: passing](https://github.com/yoms07/stashco/actions/runs/31877078347) — both jobs green.
 
 | Job | Steps |
 | --- | --- |

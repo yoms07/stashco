@@ -83,12 +83,21 @@ On-chain now: request 0 `Approved`, requests 1 and 2 `Pending` (real data for th
 inbox). Request 1 has a `PayoutMeta` row ("Globex"); 0 and 2 deliberately do not, so the left
 join stays honest.
 
+## All 16 tickets closed
+
+Contract, backend and frontend tracks are complete. CI runs both jobs green on every push.
+
 ## Not done / next
 
-1. Owner payout view (#14) — **in flight**.
-2. Approver inbox (#15), then the yield chart (#16).
-
-Run only one agent at a time inside `packages/web` — #14/#15/#16 all touch `app/page.tsx`.
+1. **Nothing has been signed by a real wallet.** Every screen typechecks, builds and reads live
+   contract state, but Freighter cannot be driven headlessly — the signed deposit, request and
+   approve paths were verified by simulation only. This is the top remaining risk.
+2. Deploy the frontend and fill in the live demo URL in the README.
+3. Capture the three README screenshots (`docs/web.png`, `docs/mobile.png`, `docs/ci.png`).
+4. Flip the GitHub repo to public before submitting.
+5. Add doc comments to the contract's `Error` enum so generated bindings carry real messages —
+   deferred because it changes the wasm, and redeploying would reset the position and restart
+   the yield clock.
 
 ## Local dev dependencies
 
