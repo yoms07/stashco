@@ -12,6 +12,11 @@ export const API_ENDPOINTS = {
     me: '/auth/me',
   },
 
+  // Treasury
+  treasury: {
+    positionHistory: '/treasury/position/history',
+  },
+
   // Payouts
   payouts: {
     meta: (requestId: number) => `/payouts/${requestId}/meta`,

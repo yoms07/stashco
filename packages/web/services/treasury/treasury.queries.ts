@@ -6,4 +6,5 @@
 export const treasuryKeys = {
   all: (address: string | null) => ['treasury', address] as const,
   position: (address: string | null) => [...treasuryKeys.all(address), 'position'] as const,
+  history: (address: string | null) => [...treasuryKeys.all(address), 'history'] as const,
 };

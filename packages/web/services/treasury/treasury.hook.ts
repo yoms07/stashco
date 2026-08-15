@@ -20,6 +20,18 @@ export function useTreasuryPosition() {
   });
 }
 
+/** Captured position history, newest-first, for the position-over-time chart. Snapshot
+ * capture is hourly (`packages/api`), so this refetches far less often than the live position. */
+export function useTreasuryHistory() {
+  const { address } = useWallet();
+  return useQuery({
+    queryKey: treasuryKeys.history(address),
+    queryFn: () => TreasuryService.getHistory(),
+    enabled: !!address,
+    refetchInterval: 5 * 60_000,
+  });
+}
+
 export function useDeposit() {
   const { address } = useWallet();
   const qc = useQueryClient();

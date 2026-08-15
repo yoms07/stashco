@@ -3,6 +3,7 @@
 import { ConnectWalletButton } from '@/components/wallet/connect-wallet-button';
 import { DepositForm } from '@/components/treasury/deposit-form';
 import { PositionPanel } from '@/components/treasury/position-panel';
+import { PositionHistoryChart } from '@/components/treasury/position-history-chart';
 import { ApproverInbox } from '@/components/payouts/approver-inbox';
 import { RequestPayoutForm } from '@/components/payouts/request-payout-form';
 import { getStellarConfig } from '@/lib/stellar';
@@ -42,6 +43,7 @@ export default function Home() {
           {isConnected ? (
             <div className="flex flex-col gap-lg">
               <PositionPanel />
+              <PositionHistoryChart />
               <DepositForm />
               <RequestPayoutForm />
               <ApproverInbox />

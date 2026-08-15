@@ -14,7 +14,19 @@ export function getStellarConfig() {
     horizonUrl: process.env.NEXT_PUBLIC_HORIZON_URL ?? net.horizonUrl,
     /** Deployed contract id (C...). Empty until you deploy + set it. */
     treasuryContractId: process.env.NEXT_PUBLIC_TREASURY_CONTRACT_ID ?? '',
+    /** Principal deposited, in raw contract units — see .env.example. `null` if unset/invalid,
+     * so callers can omit the principal reference line rather than fabricate a value. */
+    treasuryPrincipalUnits: parseBigIntEnv(process.env.NEXT_PUBLIC_TREASURY_PRINCIPAL_UNITS),
   };
+}
+
+function parseBigIntEnv(raw: string | undefined): bigint | null {
+  if (!raw) return null;
+  try {
+    return BigInt(raw);
+  } catch {
+    return null;
+  }
 }
 
 export type StellarConfig = ReturnType<typeof getStellarConfig>;

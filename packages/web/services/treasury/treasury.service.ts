@@ -1,7 +1,17 @@
+import type { ApiResponse, PositionSnapshot } from '@stashco/shared';
+
+import { ApiClient } from '@/services/api/client';
+import { API_ENDPOINTS } from '@/services/api/endpoints';
 import { getTreasuryClient } from '@/lib/contracts';
 import { contractErrorVariant } from '@/lib/contract-errors';
 
 import type { DepositInput, TreasuryPosition } from './treasury.types';
+
+/** `ApiClient` never throws; unwrap so React Query can treat failures as errors. */
+function unwrap<T>(res: ApiResponse<T>): T {
+  if (!res.success) throw new Error(res.error ?? 'Request failed');
+  return res.data as T;
+}
 
 function friendlyDepositError(rawMessage: string): string {
   if (rawMessage.includes('trustline entry is missing for account')) {
@@ -24,6 +34,12 @@ export class TreasuryService {
     const client = getTreasuryClient();
     const tx = await client.balance();
     return { balanceUnits: tx.result.toString() };
+  }
+
+  /** Captured position history, newest-first, for the position-over-time chart. Reads the
+   * API's periodic snapshots rather than the chain — the chain only ever knows "now". */
+  static async getHistory(): Promise<PositionSnapshot[]> {
+    return unwrap(await ApiClient.get<PositionSnapshot[]>(API_ENDPOINTS.treasury.positionHistory));
   }
 
   /** Builds, simulates and signs `deposit(from, amount)` as one transaction. */
